@@ -29,12 +29,11 @@ RUN echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale  && \
 
 # install nginx
 RUN apt-get install -y --force-yes nginx-extras
-RUN 
 COPY homestead /etc/nginx/sites-available/
 RUN rm -rf /etc/nginx/sites-available/default && \
     rm -rf /etc/nginx/sites-enabled/default && \
     ln -fs "/etc/nginx/sites-available/homestead" "/etc/nginx/sites-enabled/homestead" && \
-    mkdir -p /var/www/html \
+    mkdir -p /var/www/html && \
     chown -R www-data:www-data /var/www/html/
 VOLUME ["/var/www/html/app"]
 VOLUME ["/var/cache/nginx"]
@@ -68,7 +67,7 @@ RUN apt-get install -y redis-server
 # install mongodb
 ADD mongodb.sh /home/
 RUN chmod +x /home/mongodb.sh
-RUN sudo /home/mongodb.sh false 3.0
+RUN sudo /home/mongodb.sh true 3.0
 
 # install supervisor
 RUN apt-get install -y supervisor && \
@@ -81,4 +80,4 @@ EXPOSE 80 443 3306 6379 27017
 
 # set container entrypoints
 ENTRYPOINT ["/bin/bash","-c"]
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
