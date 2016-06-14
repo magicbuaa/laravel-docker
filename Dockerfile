@@ -19,7 +19,7 @@ RUN apt-get update && \
 
 # install some prerequisites
 RUN apt-get install -y curl build-essential python2.7-dev python-pip \
-    gcc git libmcrypt4 libpcre3-dev memcached make \
+    gcc git libmcrypt4 libpcre3-dev libcurl4-openssl-dev memcached make \
     vim wget debconf-utils
 
 # set the locale
