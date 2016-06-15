@@ -40,7 +40,7 @@ VOLUME ["/var/cache/nginx"]
 VOLUME ["/var/log/nginx"]
 
 # install php
-RUN sudo apt-get -y --force-yes install php5-dev php-pear php5-fpm
+RUN sudo apt-get -y --force-yes install php5-dev php5-mysql php-pear php5-fpm
 
 # install mysql 
 RUN echo mysql-server mysql-server/root_password password $DB_PASS | debconf-set-selections;\
